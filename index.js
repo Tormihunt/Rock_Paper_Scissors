@@ -30,12 +30,20 @@ let computer_score = 0
 
 while (player_score < 5 && computer_score < 5) {
 
-    //Choose randomly for opponent
-    random_int = Math.floor(Math.random()*3)
-    console.log(random_int)
-    const choices = ["Rock", "Paper", "Scissors"]
-    let computer_choice = choices[random_int]
-    console.log(computer_choice)
+    //Choose randomly what computer will play
+    function getComputerChoice() {
+        random_int = Math.floor(Math.random()*3)
+        console.log(random_int)
+        const choices = ["Rock", "Paper", "Scissors"]
+        return choices[random_int]
+    }
+    console.log(getComputerChoice())
+
+    //User input
+    function getUserChoice() {
+    return userChoice = prompt(("What do you choose?", "defaultValue")).toLowerCase()
+    }
+    console.log(getUserChoice())
 
     player_score += 1
 
