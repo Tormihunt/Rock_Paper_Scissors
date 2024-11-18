@@ -34,17 +34,41 @@ while (player_score < 5 && computer_score < 5) {
     function getComputerChoice() {
         random_int = Math.floor(Math.random()*3)
         console.log(random_int)
-        const choices = ["Rock", "Paper", "Scissors"]
+        const choices = ["rock", "paper", "scissors"]
         return choices[random_int]
     }
-    console.log(getComputerChoice())
+    let computerChoice = getComputerChoice()
 
     //User input
     function getUserChoice() {
-    return userChoice = prompt(("What do you choose?", "defaultValue")).toLowerCase()
+    return choice = String(prompt("What do you choose?")).toLowerCase()
     }
-    console.log(getUserChoice())
+    let userChoice = getUserChoice()
 
-    player_score += 1
-
+    //Calculate who won
+    function displayWin() {alert("You won this round!"); player_score += 1;}
+    function displayLose() {alert("You lost this round!"); computer_score += 1;}
+    switch(userChoice) {
+        case "scissors":
+            if (computerChoice == "rock") {displayLose()}
+            else if (computerChoice == "paper") {displayWin()}
+            else {alert("It's a tie!")}
+            break
+        case "rock":
+            if (computerChoice == "paper") {displayLose()}
+            else if (computerChoice == "scissors") {displayWin()}
+            else {alert("It's a tie!")}
+            break
+        case "paper":
+            if (computerChoice == "scissors") {displayLose()}
+            else if (computerChoice == "rock") {displayWin()}
+            else {alert("It's a tie!")}
+            break
+        default:
+            alert("Are you sure that you wrote your answer correctly?")
+            break
+    }
+    alert("You: " + player_score + "  Computer: " + computer_score)
+    if (player_score == 5) {alert("YOu won!!!!")}
+    else if (computer_score == 5) {alert("You lost :(")}
     }
