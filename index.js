@@ -28,12 +28,15 @@ alert("It's best of 5 and rock beats scissors, scissors beat paper and paper bea
 let player_score = 0
 let computer_score = 0
 
-while (player_score < 5 || computer_score < 5) {
-    let computer_choice = 0
+while (player_score < 5 && computer_score < 5) {
+
+    //Choose randomly for opponent
     random_int = Math.floor(Math.random()*3)
     console.log(random_int)
-    if (random_int == 0) {
-        
-    }
+    const choices = ["Rock", "Paper", "Scissors"]
+    let computer_choice = choices[random_int]
+    console.log(computer_choice)
 
-}
+    player_score += 1
+
+    }
