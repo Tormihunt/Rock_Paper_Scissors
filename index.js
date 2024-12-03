@@ -22,53 +22,77 @@ If player wins: output congrats you won
 If computer wins; output womp-womp you lose
 */
 
-alert("Hi! You are playing rock-paper-scissors. The rules are simple:")
-alert("If you play rock and the opponent plays scissors you win. However if the opponent plays paper you would lose and in case of a the opponent also playing a rock it would be a tie!")
-alert("It's best of 5 and rock beats scissors, scissors beat paper and paper beats rock. Lets begin!")
+
+
 let player_score = 0
 let computer_score = 0
 
-while (player_score < 5 && computer_score < 5) {
+const playerScore = document.querySelector("#playerScore")
+const computerScore = document.querySelector("#computerScore")
+const loseOrWin = document.querySelector("#winOrLose")
+
 
     //Choose randomly what computer will play
     function getComputerChoice() {
-        random_int = Math.floor(Math.random()*3)
+        const random_int = Math.floor(Math.random()*3)
         console.log(random_int)
         const choices = ["rock", "paper", "scissors"]
         return choices[random_int]
     }
-    let computerChoice = getComputerChoice()
+
 
     //User input
-    function getUserChoice() {
-    return choice = String(prompt("What do you choose?")).toLowerCase()
-    }
-    let userChoice = getUserChoice()
+    const buttonsDiv = document.querySelector("#buttons");
 
-    //Calculate who won
-    function displayWin() {alert("You won this round!"); player_score += 1;}
-    function displayLose() {alert("You lost this round!"); computer_score += 1;}
-    switch(userChoice) {
-        case "scissors":
-            if (computerChoice == "rock") {displayLose()}
-            else if (computerChoice == "paper") {displayWin()}
-            else {alert("It's a tie!")}
+      buttonsDiv.addEventListener("click", (event) => {
+        let computerChoice = getComputerChoice()
+        let clickedEvent = event.target
+        let userChoice = undefined
+
+        switch(clickedEvent.id) {
+          case "rock":
+            userChoice = "rock"
             break
-        case "rock":
-            if (computerChoice == "paper") {displayLose()}
-            else if (computerChoice == "scissors") {displayWin()}
-            else {alert("It's a tie!")}
+          case "paper":
+            userChoice = "paper"
             break
-        case "paper":
-            if (computerChoice == "scissors") {displayLose()}
-            else if (computerChoice == "rock") {displayWin()}
-            else {alert("It's a tie!")}
+          case "scissors":
+            userChoice = "scissors"
             break
-        default:
-            alert("Are you sure that you wrote your answer correctly?")
-            break
-    }
-    alert("You: " + player_score + "  Computer: " + computer_score)
-    if (player_score == 5) {alert("YOu won!!!!")}
-    else if (computer_score == 5) {alert("You lost :(")}
-    }
+        }
+
+        //Calculate who won
+        function displayWin() {loseOrWin.textContent = "Congrats, you won this round!"; player_score += 1;}
+        function displayLose() {loseOrWin.textContent = "Oh no, you lost this round!"; computer_score += 1;}
+        switch(userChoice) {
+            case "scissors":
+                if (computerChoice == "rock") {displayLose()}
+                else if (computerChoice == "paper") {displayWin()}
+                else {loseOrWin.textContent = "It's a tie!"}
+                break
+            case "rock":
+                if (computerChoice == "paper") {displayLose()}
+                else if (computerChoice == "scissors") {displayWin()}
+                else {loseOrWin.textContent = "It's a tie!"}
+                break
+            case "paper":
+                if (computerChoice == "scissors") {displayLose()}
+                else if (computerChoice == "rock") {displayWin()}
+                else {loseOrWin.textContent = "It's a tie!"}
+                break
+            default:
+                loseOrWin.textContent = "Are you sure that you wrote your answer correctly?"
+                break
+        }
+
+        playerScore.textContent = "Your score: " + player_score
+        computerScore.textContent = "Computer score: " + computer_score
+        if (player_score == 5) {
+            loseOrWin.textContent = "YOu won!!!!";
+            buttonsDiv.remove()
+        }
+        else if (computer_score == 5) {
+            loseOrWin.textContent = "You lost :("
+            buttonsDiv.remove()
+        }
+      })
